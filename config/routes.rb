@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :books, only: [:new, :create, :index, :show, :destroy]
+  get 'users/show'
+  resources :books, only: [:edit, :update, :new, :create, :index, :show, :destroy]
   devise_for :users
   root to: 'homes#top'
-end
+  resources :users, only: [:edit,:show, :update]
+  
+  end

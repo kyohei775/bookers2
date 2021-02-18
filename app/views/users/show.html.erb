@@ -1,0 +1,6 @@
+<!-- /app/views/user/usershow.html.erb -->
+<p>name <%= @user.name %></p>
+<p>introduction <%= @user.introduction %></p>
+<% if @user.id == current_user.id %>
+    <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+  <% end %>
