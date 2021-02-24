@@ -1,38 +1,47 @@
-<h1>User info</h1>
-<%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-<p>name <%= @user.name %></p>
-<p>introduction <%= @user.introduction %></p>
-<% if @user.id == current_user.id %>
-    <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
-  <% end %>
-
-<h1>New book</h1>
-<%= form_for(@newbook, url: books_path) do |f| %>
-<%= render 'layouts/error_messages', model: f.object %>
-
-
-    <div>
-        <%= f.label :Title %><br>
-        <%= f.text_field :title, autofocus: true %>
-    </div>
-    <div>
-        <%= f.label :Opinion %><br>
-        <%= f.text_area :body %>
-    </div>
-    <div><%= f.submit "Create Book" %></div>
-<% end %>
-
-
-<h1>Book detail</h1>
-      <table>
-        <tr>
-          <td><%= attachment_image_tag @user, :profile_image, :fill, 30, 30, fallback: "no_image.jpg"%></td>
-          <td><%= link_to @user.name, user_path(@user) %></td>
-          <td><%= @book.title %></td>
-          <td><%= @book.body %></td>
-          <% if @book.user_id == current_user.id %>
-            <td><%= link_to "Edit", edit_book_path(@book) %></td>
-            <td><%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "本当に消しますか？"}, class:"btn btn-danger" %></td>
-          <% end %>
-        </tr>
-      </table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h1>User info</h1>
+      <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+      <p>name <%= @user.name %></p>
+      <p>introduction <%= @user.introduction %></p>
+      
+      <%= link_to edit_user_path(@user), class:"btn btn-primary btn-block " do %>
+      <span class=" fas fa-user-cog " aria-hidden="true"></span>
+      <% end %>
+          
+      
+      <h1>New book</h1>
+      <%= form_for(@newbook, url: books_path) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+      
+      
+          <div>
+              <%= f.label :Title %><br>
+              <%= f.text_field :title, autofocus: true %>
+          </div>
+          <div>
+              <%= f.label :Opinion %><br>
+              <%= f.text_area :body %>
+          </div>
+          <div><%= f.submit "Create Book" %></div>
+      <% end %>
+      </div>
+      
+  <div class="col-md-8 offset-md-1">
+  <h1>Book detail</h1>
+        <table>
+          <tr>
+            <td><%= attachment_image_tag @user, :profile_image, :fill, 30, 30, fallback: "no_image.jpg"%></td>
+            <td><%= link_to @user.name, user_path(@user) %></td>
+            <td><%= link_to @book.title, book_path(@book) %></td>
+            <td><%= @book.body %></td>
+            <% if @book.user_id == current_user.id %>
+              <td><%= link_to "Edit", edit_book_path(@book), class:"btn btn-success" %></td>
+              <td><%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "本当に消しますか？"}, class:"btn btn-danger" %></td>
+            <% end %>
+          </tr>
+        </table>
+      </div>
+  </div>
+</div>
